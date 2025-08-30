@@ -1,0 +1,74 @@
+/* Tailwind v4 style entry */
+@import "tailwindcss";
+
+/* Map shadcn design tokens to CSS variables if needed */
+@theme inline {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Basic tokens compatible with your existing classes */
+:root.light {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --muted: #f3f4f6;
+  --accent: #f3f4f6;
+  --primary: #0ea5e9; /* cyan-500 */
+  --primary-foreground: #ffffff;
+}
+
+:root.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #0f0f10;
+  --muted: #111827;
+  --accent: #111827;
+  --primary: #22d3ee; /* cyan-400 for dark */
+  --primary-foreground: #0a0a0a;
+}
+
+/* Utility bridges */
+.bg-background {
+  background-color: var(--background);
+}
+.text-foreground {
+  color: var(--foreground);
+}
+.bg-card {
+  background-color: var(--card);
+}
+.bg-muted {
+  background-color: var(--muted);
+}
+.bg-accent {
+  background-color: var(--accent);
+}
+.text-muted-foreground {
+  color: color-mix(in oklab, var(--foreground), transparent 60%);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.text-primary {
+  color: var(--primary);
+}
+.text-primary-foreground {
+  color: var(--primary-foreground);
+}
+.border {
+  border: 1px solid color-mix(in oklab, var(--foreground), transparent 85%);
+}
+.border-b {
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground), transparent 85%);
+}
+.border-l {
+  border-left: 1px solid color-mix(in oklab, var(--foreground), transparent 85%);
+}
+.border-r {
+  border-right: 1px solid color-mix(in oklab, var(--foreground), transparent 85%);
+}
