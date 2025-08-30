@@ -1,65 +1,51 @@
-import { NavLink } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Home, History, Settings, X } from 'lucide-react';
+"use client"
 
-const navigation = [
-    { name: 'Dashboard', href: '/', icon: Home },
-    { name: 'History', href: '/history', icon: History },
-    { name: 'Settings', href: '/settings', icon: Settings },
-];
+import { useState } from "react"
+import HistoryPanel from "./history/HistoryPanel"
 
-function Sidebar({ isOpen, onClose } : any) {
-    return (
-        <>
-            {/* Mobile overlay */}
-            {isOpen && (
-                <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={onClose} />
-            )}
+export default function Sidebar() {
+  const [open, setOpen] = useState(false)
 
-            {/* Sidebar */}
-            <aside
-                className={cn(
-                    'fixed left-0 top-0 z-50 h-full w-64 transform border-r bg-background transition-transform duration-300 md:translate-x-0',
-                    isOpen ? 'translate-x-0' : '-translate-x-full md:w-16'
-                )}
-            >
-                <div className="flex h-14 items-center border-b px-4 md:px-6">
-                    {/* Close button for mobile */}
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="md:hidden ml-auto"
-                        onClick={onClose}
-                    >
-                        <X className="h-4 w-4" />
-                    </Button>
-                </div>
+  return (
+    <>
+      {/* Desktop rail */}
+      <aside className="hidden md:block w-72 border-r bg-card/40">
+        <div className="h-14 border-b flex items-center px-4 font-medium">Prompt History</div>
+        <div className="p-2">
+          <HistoryPanel />
+        </div>
+      </aside>
 
-                {/* Navigation */}
-                <nav className="flex-1 space-y-1 p-4">
-                    {navigation.map((item) => (
-                        <NavLink
-                            key={item.name}
-                            to={item.href}
-                            className={({ isActive }) =>
-                                cn(
-                                    'flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                                    isActive
-                                        ? 'bg-primary text-primary-foreground'
-                                        : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                                )
-                            }
-                            onClick={() => onClose()} // Close sidebar on mobile after navigation
-                        >
-                            <item.icon className="h-4 w-4 mr-3" />
-                            <span className={cn(!isOpen && 'md:hidden')}>{item.name}</span>
-                        </NavLink>
-                    ))}
-                </nav>
-            </aside>
-        </>
-    );
+      {/* Mobile toggle */}
+      <button
+        className="md:hidden fixed bottom-4 right-4 z-40 rounded-full bg-primary text-primary-foreground shadow-lg px-4 py-2"
+        onClick={() => setOpen(true)}
+        aria-label="Open history"
+      >
+        History
+      </button>
+
+      {/* Mobile drawer */}
+      {open && (
+        <div className="md:hidden fixed inset-0 z-50" aria-modal="true" role="dialog">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-background border-l shadow-xl p-3">
+            <div className="h-12 flex items-center justify-between border-b px-1">
+              <span className="font-medium">Prompt History</span>
+              <button
+                className="rounded px-2 py-1 text-sm hover:bg-muted"
+                onClick={() => setOpen(false)}
+                aria-label="Close"
+              >
+                Close
+              </button>
+            </div>
+            <div className="pt-2">
+              <HistoryPanel onItemClick={() => setOpen(false)} />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }
-
-export default Sidebar;

@@ -1,52 +1,19 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Menu, Sun, Moon } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import ThemeToggle from "./ThemeToggle"
 
-function Header({ onMenuClick, sidebarOpen }: any) {
-    const { theme, setTheme } = useTheme();
-
-    return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center px-4">
-                {/* Mobile Menu Button */}
-                <Button
-
-                    variant="ghost"
-                    size="icon"
-                    className="md:hidden mr-4"
-                    onClick={onMenuClick}
-                >
-                    <Menu className="h-4 w-4" />
-                </Button>
-
-                {/* Logo */}
-                <Link to="/" className="flex items-center space-x-2">
-                    <span className="font-bold text-xl">AI Images Gen</span>
-                </Link>
-
-                <div className="flex-1" />
-
-                {/* Header Actions */}
-                <div className="flex items-center space-x-2">
-                    {/* Theme Toggle */}
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                    >
-                        <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                        <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    </Button>
-
-                    {/* User Menu */}
-                    <Button variant="ghost" size="sm">
-                        Account
-                    </Button>
-                </div>
-            </div>
-        </header>
-    );
+export default function Header() {
+  return (
+    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 h-14 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center text-primary font-bold">
+            AI
+          </div>
+          <span className="font-semibold text-sm md:text-base text-pretty">AI Image Generator</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+  )
 }
-
-export default Header;
