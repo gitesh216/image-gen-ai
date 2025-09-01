@@ -25,7 +25,7 @@ const generateImage = async (prompt: string) => {
 
 const getMockImage = async () => {
     try {
-        const image = await fetch('https://unsplash.it/640/425?random');
+        const image = await fetch('https://picsum.photos/200');
         if (!image.ok) {
             throw new Error('Error while fetching mock image');
         }
@@ -35,4 +35,4 @@ const getMockImage = async () => {
     }
 };
 
-export { generateImage };
+export { generateImage, getMockImage };

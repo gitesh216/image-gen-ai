@@ -2,8 +2,8 @@ import type React from "react"
 
 import { useState } from "react"
 import { useImageStore } from "@/store/use-image-store"
-import { generateImages } from "@/services/generator"
 import PromptSuggestions from "./PromptSuggestions"
+import { getMockImage } from "@/services/imageAPI"
 
 const MAX = 300
 
@@ -26,8 +26,8 @@ export default function PromptInput() {
     setError(null)
     setLoading(true)
     try {
-      const imgs = await generateImages(value)
-      imgs.forEach(add)
+      const img = await getMockImage()
+      add({ id: "mock", url: img === undefined ? "" : img, prompt: value, createdAt: Date.now() })
       setValue("")
     } catch (err) {
       setError("Failed to generate images. Please try again.")

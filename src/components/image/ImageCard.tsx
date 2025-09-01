@@ -43,13 +43,13 @@ export default function ImageCard({ src, alt, onView }: Props) {
         className={`w-full rounded-md ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}
       />
       <div className="absolute inset-x-2 bottom-2 hidden items-center justify-end gap-2 rounded-md bg-background/60 p-1 backdrop-blur group-hover:flex">
-        <button className="rounded px-2 py-1 text-xs hover:bg-muted" onClick={onView}>
+        <button className="rounded px-2 py-1 text-xs hover:bg-muted cursor-pointer transition-colors duration-200 hover:scale-105" onClick={onView}>
           View
         </button>
-        <button className="rounded px-2 py-1 text-xs hover:bg-muted" onClick={download}>
+        <button className="rounded px-2 py-1 text-xs hover:bg-muted cursor-pointer transition-colors duration-200 hover:scale-105" onClick={download}>
           Download
         </button>
-        <button className="rounded px-2 py-1 text-xs hover:bg-muted" onClick={copy}>
+        <button className="rounded px-2 py-1 text-xs hover:bg-muted cursor-pointer transition-colors duration-200 hover:scale-105" onClick={copy}>
           Copy
         </button>
       </div>
